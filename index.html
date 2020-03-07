@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promises</title>
+  </head>
+  <body>
+    <script>
+      const getNames = function() {
+        return new Promise(function(resolve, reject) {
+          return setTimeout(function() {
+            let names = ["sebastian", "jose", "luis"];
+            reject(names)
+          }, 1000);
+        });
+      };
+
+      const getName = function(names, name) {
+        return new Promise(function(resolve, reject) {
+          return setTimeout(function() {
+            let result = names.filter((currentName) => currentName == name)[0];
+            resolve(result)
+          }, 2000);
+        });
+      };
+
+
+      async function resolveGetName() {
+          try {
+            let getnames = await getNames();
+            let getname = await getName(getnames, "sebastian");
+            
+            console.log("getname", getname)
+          } catch (e) {
+            console.log("error!!", e)
+          }  
+      }
+
+      resolveGetName()
+    </script>
+  </body>
+</html>
